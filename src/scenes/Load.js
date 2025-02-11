@@ -168,7 +168,8 @@ class Load extends Phaser.Scene {
          - Super Slash       | Left Arrow\<br>
          =================================\<br>
          Run on Walls by jumping while along side them! \<br>
-         Deflect bullets to perform a Super Slash!\<br>
+         Double Jump by deflecting Bullets!\<br>
+         Charge your Sword to perform a Super Slash!\<br>
          `
         this.scene.start('menuScene') 
     }

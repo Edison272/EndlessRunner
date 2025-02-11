@@ -7,7 +7,7 @@ class Drone extends Phaser.Physics.Arcade.Sprite {
 
         //spawn
         this.new = true
-        this.elevation = Phaser.Math.Between(-300, 400)
+        this.elevation = Phaser.Math.Between(-100, 400) -100*(scene.difficultyScale-1)
 
         //drone physics
         this.body.setSize(16,15)
@@ -17,17 +17,18 @@ class Drone extends Phaser.Physics.Arcade.Sprite {
         this.shootTime = 3
         this.currTime = 0
 
-        this.shootTime = scene.time.addEvent({
-            delay: 3000/scene.difficultyScale, // ms
-            callback: () => {
-                scene.shoot(this.body.x, this.body.y+50)
-            },
-            //args: [],
-            callbackScope: null  ,
-            loop: true,
-          });
-          this.whirr = scene.sound.add('sfx-drone', {volume: 0.1})
-          this.whirr.play()
+        this.shootTime = scene.time.delayedCall(5000, () => {
+            scene.time.addEvent({
+                delay: 3000/scene.difficultyScale, // ms
+                callback: () => {
+                    scene.shoot(this.body.x, this.body.y+50)
+                },
+                //args: [],
+                callbackScope: null  ,
+                loop: true,
+            })});
+            this.whirr = scene.sound.add('sfx-drone', {volume: 0.1})
+            this.whirr.play()
     }
 
     intoPosition() {

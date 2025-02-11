@@ -10,6 +10,7 @@ class Play extends Phaser.Scene {
         this.gameOver = false
         this.difficultyScale = 1
         this.endScreen = false
+        this.difficultyCurb = 1
 
         //BACKGROUND
         this.BG2 = this.add.tileSprite(0, 0, 720, 720, 'veryfarbg').setOrigin(0, 0.5).setScale(1.5)
@@ -17,12 +18,6 @@ class Play extends Phaser.Scene {
         this.BG0 = this.add.tileSprite(0, 0, 720, 800, 'nearbg').setOrigin(0, 0.25).setScale(1.5)
 
         this.cameras.main.setBackgroundColor(0x807580)
-
-
-        //drones
-        this.drone1 = new Drone(this, game.config.width/1.25, 0, 'drone').setOrigin(0.5, 0)
-        
-        this.drones = this.add.group([this.drone1])
 
         //buildings
         this.surfaces = this.add.group()
@@ -108,6 +103,11 @@ class Play extends Phaser.Scene {
             bullets.destroy()
         })
 
+        //drones
+        this.drone1 = new Drone(this, game.config.width/1.25, 0, 'drone').setOrigin(0.5, 0)
+        
+        this.drones = this.add.group([this.drone1])
+
         //drone spawn timer
         this.time.delayedCall(8000, () => {
         this.time.addEvent({
@@ -142,8 +142,10 @@ class Play extends Phaser.Scene {
         this.swordCounter = 6
         this.player.OnGround = true
         this.swordui.setFrame(this.swordCounter)
+        this.player.body.setVelocityY(-1000)
         
-        this.difficultyScale += 0.5
+        this.difficultyCurb = this.difficultyCurb * 0.9
+        this.difficultyScale += 0.5 * this.difficultyCurb
 
     }
 
@@ -158,8 +160,8 @@ class Play extends Phaser.Scene {
     update() {
         //parallax-y effect
         this.BG2.tilePositionX += 1*(this.difficultyScale)
-        this.BG1.tilePositionX += 2*(this.difficultyScale)
-        this.BG0.tilePositionX += 3*(this.difficultyScale)
+        this.BG1.tilePositionX += 1.375*(this.difficultyScale)
+        this.BG0.tilePositionX += 1.75*(this.difficultyScale)
 
         //adjust ui
         this.swordui.y = this.cameras.main.scrollY + game.config.height*0.95
@@ -204,12 +206,14 @@ class Play extends Phaser.Scene {
             this.swordsmanFSM.transition('death')
         }
         if(this.gameOver) {
+            //slowdown cam and parallax
             if(this.difficultyScale > 0) {
                 this.difficultyScale -= 0.01
             } else if(this.difficultyScale < 0) {
                 this.difficultyScale = 0
             }
 
+            //go back to menu or whatnot
             if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
                 this.sound.play('sfx-bum')
                 this.scene.start('menuScene')    
@@ -219,6 +223,7 @@ class Play extends Phaser.Scene {
                 this.scene.restart()    
             }
             
+            //end screen message
             if(!this.endScreen) {
                 this.endScreen = true
                 let endConfig = {

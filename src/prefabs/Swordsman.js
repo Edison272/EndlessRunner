@@ -6,7 +6,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
       this.setScale(3)
 
       //swordsman physics
-      this.body.setSize(23,29).setOffset(6, 4)
+      this.body.setSize(20,27).setOffset(8, 4)
       this.body.pushable = false
       this.setGravityY(1000);
 
@@ -142,7 +142,7 @@ class DropState extends State {
     this.moveSound.stop()
     this.moveSound.play()
     swordsman.anims.play('dropping', true)
-    swordsman.body.setVelocityY(2000)
+    swordsman.body.setVelocityY(1500)
   }
   execute(scene,swordsman) {
     this.stateMachine.transition('airborne')
@@ -151,16 +151,18 @@ class DropState extends State {
 
 class SuperState extends State {
   enter(scene, swordsman) {
+    swordsman.superslash.x = 0
+    swordsman.superslash.y = scene.cameras.main.scrollY
     swordsman.slash.body.enable = true
     swordsman.anims.play('slashing', true)
     swordsman.superslash.visible = true
-    swordsman.body.setVelocityY(-1000)
     swordsman.superslash.anims.play('superswordslash').once('animationcomplete', () => {
       scene.superslash()
       swordsman.superslash.visible = false
       swordsman.canSuperSlash = false
       if(swordsman.OnGround) {
         this.stateMachine.transition('running')
+        swordsman.slash.body.enable = false
       } else {
         this.stateMachine.transition('airborne')
         swordsman.slash.body.enable = false
