@@ -151,6 +151,7 @@ class DropState extends State {
 
 class SuperState extends State {
   enter(scene, swordsman) {
+    swordsman.slash.body.enable = true
     swordsman.anims.play('slashing', true)
     swordsman.superslash.visible = true
     swordsman.body.setVelocityY(-1000)
@@ -162,6 +163,7 @@ class SuperState extends State {
         this.stateMachine.transition('running')
       } else {
         this.stateMachine.transition('airborne')
+        swordsman.slash.body.enable = false
       }
     })
     

@@ -56,7 +56,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Arial',
             fontSize: '54px',
-            backgroundColor: '#99d9ea',
+            backgroundColor: 'rgba(180, 180, 180, 0.5)',
             color: '#ccf5ff',
             align: 'center',
             padding: {
@@ -70,6 +70,7 @@ class Play extends Phaser.Scene {
             delay: 1000, // ms
             callback: () => {
                 this.p1Score += 1
+                this.difficultyScale += 0.01
                 this.scoreui.text = Math.floor(this.p1Score)
             },
             //args: [],
@@ -130,6 +131,8 @@ class Play extends Phaser.Scene {
 
     //swordsman special ability
     superslash() {
+        this.p1Score += 10
+        this.scoreui.text = Math.floor(this.p1Score)
         this.bullets.clear(true, true)
         this.drones.getChildren().forEach(drone => {
             drone.death()

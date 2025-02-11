@@ -17,6 +17,20 @@ class Menu extends Phaser.Scene {
         this.drones = this.add.group([this.drone1, this.drone2, this.drone3])
         this.anims.play('hovering', this.drones.getChildren())
 
+        let titleConfig = {
+            fontFamily: 'Arial',
+            fontSize: '64px',
+            backgroundColor: 'rgba(180, 180, 180, 0.5)',
+            color: '#ccf5ff',
+            align: 'center',
+            padding: {
+              top: 5,
+              bottom: 15,
+            },
+            fixedWidth: 640
+          }
+        this.title = this.add.text(game.config.width/2 - titleConfig.fixedWidth/2, game.config.height/2-120, 'DEFLECTION RUN', titleConfig)
+
         let UIConfig = {
             fontFamily: 'arial',
             fontSize: '32px',
@@ -41,16 +55,21 @@ class Menu extends Phaser.Scene {
         if(!this.optionSelected) {
             if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
                 this.sound.play('sfx-bum')
+                this.whirr = this.sound.add('sfx-drone', {volume: 0.1})
+                this.whirr.play()
                 this.optionSelected = true
                 this.selectPlay = false
                 //this.scene.start('creditScene')    
             }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
                 this.sound.play('sfx-bum')
+                this.whirr = this.sound.add('sfx-drone', {volume: 0.1})
+                this.whirr.play()
                 this.optionSelected = true
                    
             }
         } else {
+            this.title.destroy()
             this.instructionUI.destroy()
             //cutscene
             this.drones.incY(15)

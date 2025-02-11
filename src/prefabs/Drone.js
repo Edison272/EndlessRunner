@@ -18,7 +18,7 @@ class Drone extends Phaser.Physics.Arcade.Sprite {
         this.currTime = 0
 
         this.shootTime = scene.time.addEvent({
-            delay: 3000, // ms
+            delay: 3000/scene.difficultyScale, // ms
             callback: () => {
                 scene.shoot(this.body.x, this.body.y+50)
             },
