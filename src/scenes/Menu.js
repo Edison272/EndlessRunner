@@ -40,11 +40,13 @@ class Menu extends Phaser.Scene {
     update() {
         if(!this.optionSelected) {
             if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
+                this.sound.play('sfx-bum')
                 this.optionSelected = true
                 this.selectPlay = false
                 //this.scene.start('creditScene')    
             }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
+                this.sound.play('sfx-bum')
                 this.optionSelected = true
                    
             }

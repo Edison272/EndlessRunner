@@ -69,7 +69,7 @@ class Play extends Phaser.Scene {
         this.scoreTime = this.time.addEvent({
             delay: 1000, // ms
             callback: () => {
-                this.p1Score += this.difficultyScale
+                this.p1Score += 1
                 this.scoreui.text = Math.floor(this.p1Score)
             },
             //args: [],
@@ -88,6 +88,7 @@ class Play extends Phaser.Scene {
 
         //getting shot
         this.physics.add.collider(this.player, this.bullets, (player, bullets) => {
+            this.sound.play('sfx-hurt')
             this.swordsmanFSM.transition('death')
             bullets.destroy()
         })
@@ -133,7 +134,7 @@ class Play extends Phaser.Scene {
         this.drones.getChildren().forEach(drone => {
             drone.death()
         }, this)
-        
+
         this.sound.play('sfx-shwing')
         this.swordCounter = 6
         this.player.OnGround = true
@@ -185,6 +186,7 @@ class Play extends Phaser.Scene {
         this.drones.getChildren().forEach(drone => {
             drone.intoPosition()
             if(drone.body.y > 1080) {
+                this.sound.play('sfx-boom')
                 drone.destroy()
             }
         }, this)
@@ -195,7 +197,7 @@ class Play extends Phaser.Scene {
             this.sound.play('sfx-thud')
             this.cameras.main.shake(300, 0.02)
             this.scoreTime.destroy()
-            this.bgMusic.stop();
+            this.bgMusic.stop()
             this.swordsmanFSM.transition('death')
         }
         if(this.gameOver) {
@@ -206,11 +208,11 @@ class Play extends Phaser.Scene {
             }
 
             if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
-            
+                this.sound.play('sfx-bum')
                 this.scene.start('menuScene')    
             }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
-    
+                this.sound.play('sfx-bum')
                 this.scene.restart()    
             }
             

@@ -5,10 +5,20 @@ class Load extends Phaser.Scene {
 
     preload() {
         //load audio
+
+        //player
         this.load.audio('sfx-deflect', './assets/sfx-deflect.mp3')
         this.load.audio('sfx-swish', './assets/sfx-swish.mp3')
         this.load.audio('sfx-thud', './assets/sfx-thud.mp3')
         this.load.audio('sfx-shwing', './assets/sfx-shwing.mp3')
+        this.load.audio('sfx-running', './assets/sfx-running.mp3')
+        this.load.audio('sfx-woosh', './assets/sfx-woosh.mp3')
+        this.load.audio('sfx-hurt', './assets/sfx-hurt.mp3')
+
+        this.load.audio('sfx-boom', './assets/sfx-boom.mp3')
+        this.load.audio('sfx-drone', './assets/sfx-drone.mp3')
+
+        this.load.audio('sfx-bum', './assets/sfx-bum.mp3')
 
         this.load.audio('sfx-looping-beat', './assets/sfx-looping-beat.mp3')
 

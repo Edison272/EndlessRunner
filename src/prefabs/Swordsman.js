@@ -23,6 +23,10 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
       //state variables
       this.OnGround = true
 
+      this.moveSound = scene.sound.add('sfx-running')
+      
+
+
       // initialize state machine managing hero (initial state, possible states, state args[])
       scene.swordsmanFSM = new StateMachine('running', {
         running: new RunState(),
@@ -38,6 +42,8 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
 class RunState extends State {
     enter(scene, swordsman) {
+      this.moveSound = scene.sound.add('sfx-running')
+      this.moveSound.play()
       swordsman.anims.play('running', true)
     }
     execute(scene, swordsman) {
@@ -48,18 +54,22 @@ class RunState extends State {
         return
       }
       if(swordsman.OnGround && Phaser.Input.Keyboard.JustDown(up)) {
+        this.moveSound.stop()
         swordsman.OnGround = false
         this.stateMachine.transition('jumping')
         return
       }
       if(Phaser.Input.Keyboard.JustDown(left) && swordsman.canSuperSlash) {
+        this.moveSound.stop()
         this.stateMachine.transition('superslash')
         return
       }
       if(Phaser.Input.Keyboard.JustDown(down)) {
+        this.moveSound.stop()
         this.stateMachine.transition('dropping')
         return
       }
+      
     }
 }
 
@@ -115,6 +125,9 @@ class SlashState extends State {
 
 class JumpState extends State {
     enter(scene, swordsman) {
+      this.moveSound = scene.sound.add('sfx-woosh')
+      this.moveSound.stop()
+      this.moveSound.play()
       swordsman.anims.play('jumping', true)
       swordsman.body.setVelocityY(-700)
     }
@@ -125,6 +138,9 @@ class JumpState extends State {
 
 class DropState extends State {
   enter(scene, swordsman) {
+    this.moveSound = scene.sound.add('sfx-woosh')
+    this.moveSound.stop()
+    this.moveSound.play()
     swordsman.anims.play('dropping', true)
     swordsman.body.setVelocityY(2000)
   }

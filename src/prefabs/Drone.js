@@ -26,6 +26,8 @@ class Drone extends Phaser.Physics.Arcade.Sprite {
             callbackScope: null  ,
             loop: true,
           });
+          this.whirr = scene.sound.add('sfx-drone', {volume: 0.1})
+          this.whirr.play()
     }
 
     intoPosition() {
