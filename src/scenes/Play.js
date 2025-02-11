@@ -65,7 +65,17 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 200
           }
-          this.scoreui = this.add.text(game.config.width/2 - scoreConfig.fixedWidth/2, 0, this.p1Score, scoreConfig)
+        this.scoreui = this.add.text(game.config.width/2 - scoreConfig.fixedWidth/2, 0, this.p1Score, scoreConfig)
+        this.scoreTime = this.time.addEvent({
+            delay: 1000, // ms
+            callback: () => {
+                this.p1Score += this.difficultyScale
+                this.scoreui.text = Math.floor(this.p1Score)
+            },
+            //args: [],
+            callbackScope: null  ,
+            loop: true,
+          });
 
         //controls
         this.cursors = this.input.keyboard.createCursorKeys()
@@ -174,6 +184,7 @@ class Play extends Phaser.Scene {
         if(this.player.body.y > 1080 && !this.gameOver) {
             this.gameOver = true
             this.cameras.main.shake(300, 0.02)
+            this.scoreTime.destroy()
             this.swordsmanFSM.transition('death')
         }
         if(this.gameOver) {
@@ -208,10 +219,6 @@ class Play extends Phaser.Scene {
                   }
                 this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', endConfig).setOrigin(0.5)
             }
-        } else {
-            this.p1Score += this.time.delta * this.difficultyScale
-            console.log(this.time.delta)
-            this.scoreui.text = Math.floor(this.p1Score)
         }
     }
 }
