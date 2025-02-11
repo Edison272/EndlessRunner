@@ -7,6 +7,7 @@ class Load extends Phaser.Scene {
         //load audio
         this.load.audio('sfx-deflect', './assets/sfx-deflect.mp3')
         this.load.audio('sfx-swish', './assets/sfx-swish.mp3')
+        this.load.audio('sfx-thud', './assets/sfx-swish.mp3')
 
         // load images/tile sprites
         this.load.image('building', './assets/Building.png')
