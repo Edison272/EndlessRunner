@@ -8,6 +8,7 @@ class Load extends Phaser.Scene {
         this.load.audio('sfx-deflect', './assets/sfx-deflect.mp3')
         this.load.audio('sfx-swish', './assets/sfx-swish.mp3')
         this.load.audio('sfx-thud', './assets/sfx-swish.mp3')
+        this.load.audio('sfx-shwing', './assets/sfx-shwing.mp3')
 
         // load images/tile sprites
         this.load.image('building', './assets/Building.png')
@@ -58,6 +59,11 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+        //forum https://phaser.discourse.group/t/audiocontext-was-not-allowed-to-start/795
+        if (game.sound.context.state === 'suspended') {
+            game.sound.context.resume();
+        }
+
         //drone animations
         this.anims.create({
             key: 'hovering',

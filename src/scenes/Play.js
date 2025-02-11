@@ -125,6 +125,7 @@ class Play extends Phaser.Scene {
 
     //swordsman special ability
     superslash() {
+        this.sound.play('sfx-shwing')
         this.swordCounter = 6
         this.player.OnGround = true
         this.swordui.setFrame(this.swordCounter)
@@ -184,6 +185,7 @@ class Play extends Phaser.Scene {
         //end of game
         if(this.player.body.y > 1080 && !this.gameOver) {
             this.gameOver = true
+            this.sound.play('sfx-thud')
             this.cameras.main.shake(300, 0.02)
             this.scoreTime.destroy()
             this.swordsmanFSM.transition('death')
