@@ -94,6 +94,7 @@ class Play extends Phaser.Scene {
 
         //deflecting stuff
         this.physics.add.overlap(this.player.slash, this.bullets, (player, bullets) => {
+            this.sound.play('sfx-deflect')
             if(this.swordCounter > 0) {
                 this.swordCounter -= 1
                 this.swordui.setFrame(this.swordCounter)

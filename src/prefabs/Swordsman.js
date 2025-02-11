@@ -96,6 +96,7 @@ class SlashState extends State {
   enter(scene, swordsman) {
     swordsman.slash.visible = true
     swordsman.slash.body.enable = true
+    scene.sound.play('sfx-swish')
     swordsman.slash.anims.play('swordslash').once('animationcomplete', () => {
       swordsman.slash.body.enable = false
       swordsman.slash.visible = false
