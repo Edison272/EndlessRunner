@@ -207,7 +207,7 @@ class Play extends Phaser.Scene {
                 this.endScreen = true
                 let endConfig = {
                     fontFamily: 'arial',
-                    fontSize: '64px',
+                    fontSize: '68px',
                     backgroundColor: '#FF0000',
                     color: '#000000',
                     align: 'center',
@@ -217,7 +217,10 @@ class Play extends Phaser.Scene {
                     },
                     fixedWidth: 1080
                   }
-                this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', endConfig).setOrigin(0.5)
+                this.add.text(game.config.width/2, game.config.height/2.3, 'GAME OVER', endConfig).setOrigin(0.5)
+                
+                endConfig.fontSize = '30px'
+                this.add.text(game.config.width/2, game.config.height/2, "'<' arrow to go to the menu, '>' play again", endConfig).setOrigin(0.5)
             }
         }
     }

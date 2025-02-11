@@ -17,16 +17,31 @@ class Menu extends Phaser.Scene {
         this.drones = this.add.group([this.drone1, this.drone2, this.drone3])
         this.anims.play('hovering', this.drones.getChildren())
 
+        let UIConfig = {
+            fontFamily: 'arial',
+            fontSize: '32px',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            align: 'center',
+            padding: {
+              top: 10,
+              bottom: 10,
+            },
+            fixedWidth: 1080
+          }
+        this.instructionUI = this.add.text(game.config.width/2, game.config.height/1.5, "'<' arrow to go to credits, '>' arrow to play the game", UIConfig).setOrigin(0.5)
 
         this.swordui = this.add.image(game.config.width/2, game.config.height/2, 'swordbar').setOrigin(0.5, 0.6).setScale(5, 6)
         //this.scene.start('playScene')
         this.optionSelected = false
+        this.selectPlay = true
     }
 
     update() {
         if(!this.optionSelected) {
             if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
                 this.optionSelected = true
+                this.selectPlay = false
                 //this.scene.start('creditScene')    
             }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
@@ -34,6 +49,7 @@ class Menu extends Phaser.Scene {
                    
             }
         } else {
+            this.instructionUI.destroy()
             //cutscene
             this.drones.incY(15)
             this.swordui.setRotation(this.swordui.y/2000)
@@ -48,7 +64,11 @@ class Menu extends Phaser.Scene {
                 this.cameras.main.setBackgroundColor(0x000000)
 
                 if(this.BG0.y < -500) {
-                    this.scene.start('playScene') 
+                    if(this.selectPlay) {
+                        this.scene.start('playScene') 
+                    } else {
+                        this.scene.start('creditScene') 
+                    }
                 }
             } 
         }  

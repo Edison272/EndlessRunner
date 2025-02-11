@@ -16,6 +16,7 @@
 // - the color choices for the characters that allows each element to create a visually appealing screen
 // - the character animations & walk cycles which turned out pretty decent for how inexperienced i was
 // - the impact frames i added in some of my animations
+// - the littlecutscene when you play the game from the menu
 
 let config = {
     type: Phaser.AUTO,

@@ -138,6 +138,7 @@ class Load extends Phaser.Scene {
             })
         })
 
+        document.getElementById('info').innerHTML = '<strong>CharacterFSM.js:</strong> Arrows: move | SPACE: attack | SHIFT: dash attack | F: spin attack | H: hurt (knockback) | D: debug (toggle)'
         this.scene.start('menuScene') 
     }
 }
