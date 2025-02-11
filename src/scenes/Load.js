@@ -161,7 +161,15 @@ class Load extends Phaser.Scene {
             })
         })
 
-        document.getElementById('info').innerHTML = '<strong>CharacterFSM.js:</strong> Arrows: move | SPACE: attack | SHIFT: dash attack | F: spin attack | H: hurt (knockback) | D: debug (toggle)'
+        document.getElementById('info').innerHTML = `<strong>DEFLECTION RUN CONTROLS:</strong>\<br>
+         - Jump              | Up Arrow \<br>
+         - Dash Down         | Down Arrow\<br>
+         - Sword Swing       | Right Arrow\<br>
+         - Super Slash       | Left Arrow\<br>
+         =================================\<br>
+         Run on Walls by jumping while along side them! \<br>
+         Deflect bullets to perform a Super Slash!\<br>
+         `
         this.scene.start('menuScene') 
     }
 }
