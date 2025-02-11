@@ -120,20 +120,27 @@ class Play extends Phaser.Scene {
             loop: true,
           })})
 
+        //music solution from https://stackoverflow.com/questions/34210393/looping-audio-in-phaser
+        this.bgMusic = this.sound.add('sfx-looping-beat')
+        this.bgMusic.loop = true; // This is what you are looking for
+        this.bgMusic.play();
 
     }
 
     //swordsman special ability
     superslash() {
+        this.bullets.clear(true, true)
+        this.drones.getChildren().forEach(drone => {
+            drone.death()
+        }, this)
+        
         this.sound.play('sfx-shwing')
         this.swordCounter = 6
         this.player.OnGround = true
         this.swordui.setFrame(this.swordCounter)
-        this.bullets.clear(true, true)
+        
         this.difficultyScale += 0.5
-        this.drones.getChildren().forEach(drone => {
-            drone.death()
-        }, this)
+
     }
 
     //drone attack
@@ -188,6 +195,7 @@ class Play extends Phaser.Scene {
             this.sound.play('sfx-thud')
             this.cameras.main.shake(300, 0.02)
             this.scoreTime.destroy()
+            this.bgMusic.stop();
             this.swordsmanFSM.transition('death')
         }
         if(this.gameOver) {
