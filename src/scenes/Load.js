@@ -1,0 +1,143 @@
+class Load extends Phaser.Scene {
+    constructor() {
+        super("loadScene")
+    }
+
+    preload() {
+        // load images/tile sprites
+        this.load.image('building', './assets/Building.png')
+
+        this.load.image('bullet', './assets/Bullet.png')
+
+        this.load.image('nearbg', './assets/Backgrounds/NearBG.png')
+        this.load.image('farbg', './assets/Backgrounds/FarBG.png')
+        this.load.image('veryfarbg', './assets/Backgrounds/VeryFarBG.png')
+
+        //animations
+        this.load.spritesheet('superslash', './assets/SuperSlash.png', {
+            frameWidth: 135,
+            frameHeight: 90,
+            startFrame: 0,
+            endFrame: 14
+        })
+        this.load.spritesheet('slash', './assets/Slash.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 6
+        })
+        this.load.spritesheet('swordsman', './assets/Swordsman.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 10
+        })
+        this.load.spritesheet('swordbar', './assets/SwordBar.png', {
+            frameWidth: 128,
+            frameHeight: 13,
+            startFrame: 0,
+            endFrame: 6
+        })
+        this.load.spritesheet('flighticon', './assets/FlightIcon.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 1
+        })
+        this.load.spritesheet('drone', './assets/Drone.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 13
+        })
+    }
+
+    create() {
+        //drone animations
+        this.anims.create({
+            key: 'hovering',
+            frameRate: 40,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('drone', {
+                start:0,
+                end:13
+            })
+        })
+    
+        this.anims.create({
+            key: 'chargesword',
+            frameRate: 20,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('swordbar', {
+                start:0,
+                end:6
+            })
+        })
+
+        //swordsman animations
+        this.anims.create({
+            key: 'running',
+            frameRate: 20,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('swordsman', {
+                start:0,
+                end:4
+            })
+        })
+        this.anims.create({
+            key: 'jumping',
+            frameRate: 5,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('swordsman', {
+                frames: [9, 8]
+            })
+        })
+        this.anims.create({
+            key: 'dropping',
+            frameRate: 10,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('swordsman', {
+                frames: [9, 5]
+            })
+        })
+        this.anims.create({
+            key: 'slashing',
+            frameRate: 10,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('swordsman', {
+                start:5,
+                end:7
+            })
+        })
+        this.anims.create({
+            key: 'death',
+            frameRate: 10,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('swordsman', {
+                start:9,
+                end:10
+            })
+        })
+
+        //sword slash
+        this.anims.create({
+            key: 'swordslash',
+            frameRate: 40,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('slash', {
+                frames: [0, 0, 0, 1, 1, 1, 2, 2, 2, 6, 6, 5, 3, 3, 3, 4, 4, 4]
+            })
+        })
+        this.anims.create({
+            key: 'superswordslash',
+            frameRate: 40,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('superslash', {
+                start: 0,
+                end: 14
+            })
+        })
+
+        this.scene.start('menuScene') 
+    }
+}

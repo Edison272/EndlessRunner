@@ -1,0 +1,43 @@
+class Drone extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y, texture, frame) {
+        super(scene, x, y, texture, frame)
+        scene.add.existing(this)
+        scene.physics.add.existing(this)
+        this.setScale(3)
+
+        //spawn
+        this.new = true
+        this.elevation = Phaser.Math.Between(-300, 400)
+
+        //drone physics
+        this.body.setSize(16,15)
+        this.anims.play('hovering', true)
+
+        //shoot timer
+        this.shootTime = 3
+        this.currTime = 0
+
+        this.shootTime = scene.time.addEvent({
+            delay: 3000, // ms
+            callback: () => {
+                scene.shoot(this.body.x, this.body.y+50)
+            },
+            //args: [],
+            callbackScope: null  ,
+            loop: true,
+          });
+    }
+
+    intoPosition() {
+        if(this.body.y < this.elevation) {
+            this.body.y += (this.body.y-this.elevation)/-100
+        }
+    }
+    
+
+    death() {
+        this.setGravityY(1100);
+        this.shootTime.destroy()
+    }
+
+}
