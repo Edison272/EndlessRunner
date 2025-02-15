@@ -111,7 +111,7 @@ class Play extends Phaser.Scene {
         //drone spawn timer
         this.time.delayedCall(8000, () => {
         this.time.addEvent({
-            delay: 5000/this.difficultyScale, // ms
+            delay: 5000/(this.difficultyScale*1.3), // ms
             callback: () => {
                 var drone = new Drone(this, Phaser.Math.Between(game.config.width/1.9, game.config.width/1)
                 , -game.config.height, 'drone').setOrigin(0.5, 0)
