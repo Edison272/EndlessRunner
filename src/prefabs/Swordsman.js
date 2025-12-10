@@ -42,6 +42,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
 class RunState extends State {
     enter(scene, swordsman) {
+      scene.sound.stopByKey('sfx-running')
       this.moveSound = scene.sound.add('sfx-running')
       this.moveSound.play()
       swordsman.anims.play('running', true)
@@ -151,13 +152,13 @@ class DropState extends State {
 
 class SuperState extends State {
   enter(scene, swordsman) {
+    scene.superslash()
     swordsman.superslash.x = 0
     swordsman.superslash.y = scene.cameras.main.scrollY
     swordsman.slash.body.enable = true
     swordsman.anims.play('slashing', true)
     swordsman.superslash.visible = true
     swordsman.superslash.anims.play('superswordslash').once('animationcomplete', () => {
-      scene.superslash()
       swordsman.superslash.visible = false
       swordsman.canSuperSlash = false
       if(swordsman.OnGround) {
